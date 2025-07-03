@@ -20,6 +20,7 @@ BLACK = (0, 0, 0)
 snake = [(100, 100), (80, 100), (60, 100)]
 direction = (20, 0)
 food = (random.randrange(0, WIDTH, CELL_SIZE), random.randrange(0, HEIGHT, CELL_SIZE))
+font = pygame.font.Font(None, 72)
 
 def move_snake(snake, direction):
     head = (snake[0][0] + direction[0], snake[0][1] + direction[1])
@@ -35,6 +36,17 @@ def draw(snake, food):
         pygame.draw.rect(screen, GREEN, (*block, CELL_SIZE, CELL_SIZE))
     pygame.draw.rect(screen, RED, (*food, CELL_SIZE, CELL_SIZE))
     pygame.display.flip()
+
+#Function when game over 
+def show_game_over():
+    game_over_text = font.render("Game Over", True, RED)
+    text_rect = game_over_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    screen.fill(BLACK)
+    screen.blit(game_over_text, text_rect)
+    pygame.display.flip()
+    pygame.time.wait(2000)  # Wait 2 seconds before quitting
+    pygame.quit()
+    sys.exit()
 
 # Game loop
 running = True
@@ -53,6 +65,14 @@ while running:
     elif keys[pygame.K_LEFT] and direction != (CELL_SIZE, 0):
         direction = (-CELL_SIZE, 0)
     elif keys[pygame.K_RIGHT] and direction != (-CELL_SIZE, 0):
+        direction = (CELL_SIZE, 0)
+    elif keys[pygame.K_w] and direction != (0,CELL_SIZE):
+        direction = (0, -CELL_SIZE)
+    elif keys[pygame.K_s] and direction != (0, -CELL_SIZE):
+        direction = (0, CELL_SIZE)
+    elif keys[pygame.K_a] and direction != (CELL_SIZE, 0):
+        direction = (-CELL_SIZE, 0)
+    elif keys[pygame.K_d] and direction != (-CELL_SIZE, 0):
         direction = (CELL_SIZE, 0)
 
     # Move and grow
