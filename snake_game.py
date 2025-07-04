@@ -22,14 +22,17 @@ direction = (20, 0)
 food = (random.randrange(0, WIDTH, CELL_SIZE), random.randrange(0, HEIGHT, CELL_SIZE))
 font = pygame.font.Font(None, 72)
 
+#function move snake
 def move_snake(snake, direction):
     head = (snake[0][0] + direction[0], snake[0][1] + direction[1])
     return [head] + snake[:-1]
 
+#Function snake grow
 def grow_snake(snake, direction):
     head = (snake[0][0] + direction[0], snake[0][1] + direction[1])
     return [head] + snake
 
+#function screen color
 def draw(snake, food):
     screen.fill(BLACK)
     for block in snake:
@@ -92,5 +95,7 @@ while running:
 
     draw(snake, food)
 
+#Quit
+show_game_over()
 pygame.quit()
 sys.exit()
